@@ -1,17 +1,21 @@
+require('dotenv').config(); // Ensure this is at the top of the file
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
-
+const cookieParser = require('cookie-parser');
 require('./config/mongoose.config');
-const routes = require('./routes/project.routes');
 
-const port = process.env.PORT;
+const projectRoutes = require('./routes/project.routes');
+const userRoutes = require('./routes/user.routes');
+
+const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-routes(app);
+projectRoutes(app);
+userRoutes(app);
 
-app.listen(port, () => console.log(`Listening on port: ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));

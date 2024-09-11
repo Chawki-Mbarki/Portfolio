@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const dbName = process.env.DB;
-const username = process.env.ATLAS_USERNAME;
-const pw = process.env.ATLAS_PASSWORD;
+const { username, pw, dbName } = process.env;
 
 const uri = `mongodb+srv://${username}:${pw}@cluster0.efhldmw.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connection Established'))
-  .catch((err) => console.log('Something went wrong when connecting to the database', err));
+mongoose
+  .connect(uri)
+  .then(() => console.log("Connection Established"))
+  .catch((err) => console.error("Database connection failed", err));
