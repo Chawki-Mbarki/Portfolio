@@ -1,4 +1,4 @@
-require('dotenv').config(); // Ensure this is at the top of the file
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
