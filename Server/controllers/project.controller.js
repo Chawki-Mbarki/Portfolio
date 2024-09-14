@@ -20,6 +20,12 @@ const getProjectById = async (req, res) => {
 };
 
 const createProject = async (req, res) => {
+  const { title, description, technologies, image, liveLink, repoLink } = req.body;
+
+  if (!title || !description || !technologies || !image || !liveLink || !repoLink) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
   try {
     const newProject = new Project(req.body);
     const savedProject = await newProject.save();
